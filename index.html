@@ -23,6 +23,13 @@
         .navbar {
             background-color: var(--primary-color) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(44, 62, 80, 0.85) !important;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
         .header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -81,7 +88,7 @@
         }
         .nav-link.active {
             font-weight: 600;
-            color: var(--secondary-color) !important;
+            color: #228ba7 !important;
         }
         .social-icon {
             width: 40px;
@@ -168,7 +175,7 @@
         
         /* Navigation Active State */
         .navbar-dark .navbar-nav .nav-link.active {
-            color: #3498db !important;
+            color: #228ba7 !important;
             font-weight: 600;
         }
 
@@ -201,6 +208,9 @@ section {
                         <a class="nav-link" href="#education">Education</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#awards">Awards</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#skills">Skills</a>
                     </li>
                     <li class="nav-item">
@@ -231,7 +241,7 @@ section {
                         <a href="#contact" class="btn btn-outline-light btn-lg px-4">
                             <i class="fas fa-envelope me-2"></i> Contact
                         </a>
-                        <a href="path/to/your-resume.pdf" class="btn btn-outline-light btn-lg px-4" download>
+                        <a href="https://bilawalsarwar.com/Bilawal_Sarwar_Analytics.pdf" class="btn btn-outline-light btn-lg px-4" download>
                             <i class="fas fa-download me-2"></i> Resume
                         </a>
                     </div>
@@ -246,7 +256,7 @@ section {
                         <p class="mb-0"><i class="fas fa-envelope me-2"></i> bilawal.sarwar@gmail.com</p>
                     </div>
                     <div class="col-auto">
-                        <p class="mb-0"><i class="fas fa-phone me-2"></i> +966 533 58****</p>
+                        <p class="mb-0"><i class="fas fa-phone me-2"></i> +966 533 581 041</p>
                     </div>
                 </div>
             </div>
@@ -285,9 +295,9 @@ section {
                                     <li>Implemented live sales and forecasting systems for over 50 dealers and partners, utilizing Geo-mapping technology to identify high-potential sales areas, resulting in a 20% increase in sales and reducing market analysis time by 30%</li>
                                     <li>Implemented Gen AI for Marketing and BI Department</li>
                                 </ul>
-                                <span class="badge" style="background-color: teal;">Python</span>
-                                <span  class="badge" style="background-color: #228ba7;">Django</span>
-                                <span  class="badge" style="background-color: #197bb8;">SQL</span>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">Django</span>
+                                <span class="badge" style="background-color: #228ba7;">SQL</span>
                                 <span  class="badge" style="background-color: #228ba7;">Vertica</span>
                                 <span  class="badge" style="background-color: #228ba7;">Oracle</span>
                                 <span  class="badge" style="background-color: #228ba7;">Tableau</span>
@@ -308,21 +318,21 @@ section {
                         <div class="card-body">
                             <div class="timeline-item">
                                 <h4>BI Analyst</h4>
-                                <h5>MeaTech | Project stc | Full-time</h5>
+                                <h5>Flint Consulting | Project STC | Full-time</h5>
                                 <p class="text-muted">Oct 2018 - Dec 2021 | Riyadh, Saudi Arabia</p>
                                 <ul>
                                     <li>Designed analytical roadmap, deliverables, and timelines; proposed BI architecture and release management best practices</li>
                                     <li>Developed and implemented 130 new Key Performance Indicators (KPIs) to establish a comprehensive 360-degree view of customer experience at STC Telecom, encompassing B2C, B2B, and W2C sectors</li>
                                     <li>Developed executive-level dashboards that provided real-time insights into network performance and live customer experience during all national events, increasing CSAT AND NPS Score by 20%</li>
                                 </ul>
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-primary">MySQL</span>
-                                <span class="badge bg-primary">Hive</span>
-                                <span class="badge bg-primary">Impala</span>
-                                <span class="badge bg-primary">KNIME Analytics</span>
-                                <span class="badge bg-primary">Teradata</span>
-                                <span class="badge bg-primary">MicroStrategy Dossier</span>
-                                <span class="badge bg-primary">Tableau</span>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">MySQL</span>
+                                <span class="badge" style="background-color: #228ba7;">Hive</span>
+                                <span class="badge" style="background-color: #228ba7;">Impala</span>
+                                <span class="badge" style="background-color: #228ba7;">KNIME Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">Teradata</span>
+                                <span class="badge" style="background-color: #228ba7;">MicroStrategy Dossier</span>
+                                <span class="badge" style="background-color: #228ba7;">Tableau</span>
                             </div>
                         </div>
                     </div>
@@ -339,14 +349,14 @@ section {
                                     <li>Developed Model and Reports to reconcile and validate 35 TB of legacy Teradata and new IBM Netezza TwinFin server, ensuring report numbers matched with over 99% accuracy, thereby enhancing data integrity and reporting reliability</li>
                                     <li>Authored essential documentation, coordinated playback sessions with SMEs and IT, and secured formal sign-off of $4 million</li>
                                 </ul>
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-primary">IBM Netezza</span>
-                                <span class="badge bg-primary">IBM DB2</span>
-                                <span class="badge bg-primary">Watson AI</span>
-                                <span class="badge bg-primary">IBM Cognos Analytics</span>
-                                <span class="badge bg-primary">IBM DataStage</span>
-                                <span class="badge bg-primary">Oracle BIP</span>
-                                <span class="badge bg-primary">Tableau</span>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Netezza</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">Watson AI</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle BIP</span>
+                                <span class="badge" style="background-color: #228ba7;">Tableau</span>
                             </div>
                         </div>
                     </div>
@@ -363,13 +373,13 @@ section {
                                     <li>Developed 30+ ETL jobs and pipeline solutions using DataStage and PL/SQL, enhancing data processing efficiency by 55%</li>
                                     <li>Trained over 60 end-users and integrated 3 new vendors, boosting system adoption rate by 40%</li>
                                 </ul>
-                                <span class="badge bg-primary">Oracle</span>
-                                <span class="badge bg-primary">IBM Netezza</span>
-                                <span class="badge bg-primary">IBM DB2</span>
-                                <span class="badge bg-primary">SAS Analytics</span>
-                                <span class="badge bg-primary">IBM Cognos Analytics</span>
-                                <span class="badge bg-primary">IBM DataStage</span>
-                                <span class="badge bg-primary">Oracle Discoverer</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Netezza</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">SAS Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle Discoverer</span>
                             </div>
                         </div>
                     </div>
@@ -383,15 +393,15 @@ section {
                                 <p class="text-muted">Jan 2012 - Nov 2013 | Islamabad, Pakistan</p>
                                 <ul>
                                     <li>Optimized database code through query tuning, improving report performance by 60% and reducing system load by 20%</li>
-                                    <li>mplemented best practices in data models, enhancing performance and maintainability, which reduced query times by 30%</li>
+                                    <li>Implemented best practices in data models, enhancing performance and maintainability, which reduced query times by 30%</li>
                                     <li>Automated 30+ tasks using scripts, saving 10 hours per week in manual efforts and increasing operational efficiency by 15%</li>
                                 </ul>
-                                <span class="badge bg-primary">Oracle</span>
-                                <span class="badge bg-primary">Teradata</span>
-                                <span class="badge bg-primary">IBM DB2</span>
-                                <span class="badge bg-primary">SAP Business Objects</span>
-                                <span class="badge bg-primary">IBM Cognos</span>
-                                <span class="badge bg-primary">IBM DataStage</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle</span>
+                                <span class="badge" style="background-color: #228ba7;">Teradata</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">SAP Business Objects</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
                             </div>
                         </div>
                     </div>
@@ -404,34 +414,91 @@ section {
                     
                     <div class="card card-hover mb-4">
                         <div class="card-body">
-                            <h4>Enterprise Resource Planning System</h4>
-                            <p class="text-muted">Tech Solutions Inc. | 2021-2022</p>
-                            <p>Led development of comprehensive ERP system integrating finance, HR, and inventory modules serving 50+ corporate clients.</p>
+                            <h4>HRMS System for Medical Camp (EMR)</h4>
+                            <p class="text-muted">Volunteer Project · pdgrclinic.com | Oct 2021 – Present</p>
+                            <p>Designed and deployed a Django-based Electronic Medical Records (EMR) solution for a free medical camp, operational for 3+ years. Supports biannual camps treating 2,000+ patients per event with 400–500 doctors. Used daily by doctors to provide care to underprivileged patients.</p>
                             <ul>
-                                <li>Reduced processing time by 65% through optimized workflows</li>
-                                <li>Implemented role-based access control system</li>
+                                <li>Full EMR system supporting 2,000+ patients per biannual event with 400–500 participating doctors</li>
+                                <li>Operational daily for underprivileged patient care</li>
                             </ul>
-                            <span class="badge bg-secondary">Microservices</span>
-                            <span class="badge bg-secondary">Docker</span>
-                            <span class="badge bg-secondary">Kubernetes</span>
+                            <span class="badge" style="background-color: #228ba7;">Django</span>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">HL7 FHIR</span>
+                            <span class="badge" style="background-color: #228ba7;">HMR Design</span>
+                            <a href="https://pdgrclinic.com/accounts/login/?next=/" target="_blank" class="btn btn-sm btn-outline-secondary ms-2">View Live ↗</a>
                         </div>
                     </div>
-                    
+
                     <div class="card card-hover mb-4">
                         <div class="card-body">
-                            <h4>E-Commerce Platform</h4>
-                            <p class="text-muted">Digital Innovations Ltd. | 2018-2019</p>
-                            <p>Full-stack development of B2B e-commerce platform with payment gateway integration.</p>
+                            <h4>Enhanced AI Churn Prediction Model for Telecom</h4>
+                            <p class="text-muted">University of Portsmouth · MSc Thesis | Jul 2023 – Feb 2024</p>
+                            <p>Evaluated 13 ML models for telecom churn prediction. Selected LightGBM as best performer. After 10-fold cross-validation, ROC-AUC improved from 0.9 to 0.997. Confusion matrix shows only ~2.5% false positives.</p>
                             <ul>
-                                <li>Increased conversion rate by 30% through UI improvements</li>
-                                <li>Implemented real-time inventory tracking</li>
+                                <li>Evaluated 13 models — LightGBM, XGBoost, Random Forest, Gradient Boosting, SVM, Gaussian Naïve Bayes and more</li>
+                                <li>ROC-AUC improved from 0.9 to 0.997; identified service quality, billing issues and usage trends as critical churn factors</li>
                             </ul>
-                            <span class="badge bg-secondary">React</span>
-                            <span class="badge bg-secondary">Node.js</span>
-                            <span class="badge bg-secondary">MongoDB</span>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">LightGBM</span>
+                            <span class="badge" style="background-color: #228ba7;">XGBoost</span>
+                            <span class="badge" style="background-color: #228ba7;">Random Forest</span>
+                            <span class="badge" style="background-color: #228ba7;">Scikit-learn</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>Stroke Prediction Model</h4>
+                            <p class="text-muted">Academic · UCI Heart Failure Dataset | Jul 2022 – Dec 2022</p>
+                            <p>Analyzed patient variables to accurately predict stroke events. Random Forest performed best overall; SVM outperformed RF in specific cases. Key challenge was imbalanced dataset handling and optimal algorithm selection.</p>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">Random Forest</span>
+                            <span class="badge" style="background-color: #228ba7;">SVM</span>
+                            <span class="badge" style="background-color: #228ba7;">Data Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>IHE &amp; HL7 Medical Device Integration Framework using SOA</h4>
+                            <p class="text-muted">NUST · Final Year Project | Aug 2010 – Aug 2011</p>
+                            <p>Implemented medical device integration within healthcare systems using Service-Oriented Architecture (SOA). Used IHE Device Enterprise Communication (DEC) to bridge heterogeneous lab devices with EMR systems via a standardized service interface — eliminating vendor-specific protocol dependencies.</p>
+                            <span class="badge" style="background-color: #228ba7;">SOA</span>
+                            <span class="badge" style="background-color: #228ba7;">HL7 FHIR</span>
+                            <span class="badge" style="background-color: #228ba7;">IHE DEC</span>
+                            <span class="badge" style="background-color: #228ba7;">EMR</span>
+                            <span class="badge" style="background-color: #228ba7;">Java</span>
                         </div>
                     </div>
                 </section>
+
+                <!-- Honours & Awards -->
+                <section id="awards" class="mb-5">
+                    <h2 class="section-title">Honours &amp; Awards</h2>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>STC Outstanding Performance Award</h4>
+                                <h5>STC</h5>
+                                <p class="text-muted">October 2021</p>
+                                <p>For outstanding performance in STC Customer Experience Department by implementing end-to-end Business Requirements into Technical Data Warehouse and designing user-friendly dashboards for Group CEO and executives.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>IBM GBS Service Excellence Award</h4>
+                                <h5>IBM</h5>
+                                <p class="text-muted">November 2016</p>
+                                <p>Nominated for excellent commitment on Etisalat EDW project — key role in optimization of Drop 1 batch jobs by converting ELT to ETL, designed DMR reports with advanced MDX functions for Drop 2, organized meetings with Etisalat and ETL teams, and provided technical expertise to the project team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
             <!-- Right Column -->
@@ -639,7 +706,16 @@ section {
                                 <span class="skill-pill">R</span>
                                 <span class="skill-pill">PL-SQL</span>
                                 <span class="skill-pill">Shell Script</span>
-                                <span class="skill-pill">Mentoring</span>
+                                <span class="skill-pill">MDX</span>
+                                <span class="skill-pill">Oracle</span>
+                                <span class="skill-pill">Vertica</span>
+                                <span class="skill-pill">Teradata</span>
+                                <span class="skill-pill">Hive</span>
+                                <span class="skill-pill">Impala</span>
+                                <span class="skill-pill">MySQL</span>
+                                <span class="skill-pill">MS SQL Server</span>
+                                <span class="skill-pill">IBM DB2</span>
+                                <span class="skill-pill">Sybase IQ</span>
                             </div>
                         </div>
                     </div>
@@ -687,8 +763,8 @@ section {
                                 <div class="card-body text-center">
                                     <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
                                     <h5>Email</h5>
-                                    <p class="text-muted mb-3">bilawal.sarwar@example.com</p>
-                                    <a href="mailto:bilawal.sarwar@example.com" class="btn btn-sm btn-outline-primary">
+                                    <p class="text-muted mb-3">bilawal.sarwar@gmail.com</p>
+                                    <a href="mailto:bilawal.sarwar@gmail.com" class="btn btn-sm btn-outline-primary">
                                         Send Email
                                     </a>
                                 </div>
@@ -701,8 +777,8 @@ section {
                                 <div class="card-body text-center">
                                     <i class="fas fa-phone fa-3x text-primary mb-3"></i>
                                     <h5>Phone</h5>
-                                    <p class="text-muted mb-3">+92 300 1234567</p>
-                                    <a href="tel:+923001234567" class="btn btn-sm btn-outline-primary">
+                                    <p class="text-muted mb-3">+966 533 581 041</p>
+                                    <a href="tel:+966533581041" class="btn btn-sm btn-outline-primary">
                                         Call Now
                                     </a>
                                 </div>
@@ -741,10 +817,10 @@ section {
             
             <!-- Download Resume Button -->
             <div class="text-center mt-5">
-                <a href="path/to/your-resume.pdf" class="btn btn-primary btn-lg px-4 py-2" download>
+                <a href="https://bilawalsarwar.com/Bilawal_Sarwar_Analytics.pdf" class="btn btn-primary btn-lg px-4 py-2" download>
                     <i class="fas fa-download me-2"></i> Download Full Resume (PDF)
                 </a>
-                <p class="text-muted mt-2">Updated: June 2023 | File size: 2.4MB</p>
+                <p class="text-muted mt-2">Updated: March 2025 | CDMP Master · PMP Certified</p>
             </div>
         </div>
     </section>
@@ -765,6 +841,16 @@ section {
    <!-- Replace your entire script section with this: -->
 <!-- Replace your entire script section with this: -->
 <script>
+    // Transparent navbar on scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
     // Set initial active state
     let currentActive = 'summary';
     document.querySelector('.nav-link[href="#summary"]').classList.add('active');

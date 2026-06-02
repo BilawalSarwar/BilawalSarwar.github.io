@@ -9,6 +9,9 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: auto !important;
+        }
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
@@ -19,7 +22,27 @@
             line-height: 1.6;
             color: #333;
             padding-top: 60px;
-            background: #f8f9fa;
+            background: #f0f6ff;
+        }
+        #bg-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body {
+            position: relative;
+        }
+        main, nav, footer {
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(255,255,255,0.82) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.9) !important;
         }
 
             75%  { background-position: 0% 100%; }
@@ -126,9 +149,39 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+        .navbar-nav .nav-link {
+            position: relative;
+            padding: 6px 14px !important;
+            font-size: 13.5px;
+            letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 2px;
+            background: #228ba7;
+            border-radius: 2px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fff !important;
+            transform: translateY(-1px);
+        }
+        .navbar-nav .nav-link:hover::after {
+            width: 80%;
+            left: 10%;
+        }
         .nav-link.active {
             font-weight: 600;
             color: #228ba7 !important;
+        }
+        .nav-link.active::after {
+            width: 80% !important;
+            left: 10% !important;
+            background: #228ba7;
         }
         .social-icon {
             width: 40px;
@@ -226,6 +279,7 @@ section {
     </style>
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
@@ -882,6 +936,120 @@ section {
    <!-- Replace your entire script section with this: -->
 <!-- Replace your entire script section with this: -->
 <script>
+    // ── Light Polygon Network Background ──
+    (function() {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H, nodes, scrollY = 0;
+        const NODE_COUNT = 120;
+        const MAX_DIST = 220;
+        const PARALLAX = 0.18;
+
+        function getPageHeight() {
+            return Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight
+            );
+        }
+
+        function resize() {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = getPageHeight();
+            canvas.style.height = H + 'px';
+        }
+
+        function rand(a, b) { return a + Math.random() * (b - a); }
+
+        function initNodes() {
+            nodes = Array.from({ length: NODE_COUNT }, () => ({
+                x:  rand(0, W),
+                y:  rand(0, H),
+                vx: rand(-0.25, 0.25),
+                vy: rand(-0.25, 0.25),
+                r:  rand(1.5, 3.5)
+            }));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Light blue-white gradient background
+            const bg = ctx.createLinearGradient(0, 0, W, H);
+            bg.addColorStop(0,   '#daeeff');
+            bg.addColorStop(0.4, '#edf6ff');
+            bg.addColorStop(1,   '#f7fbff');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, W, H);
+
+            // Draw filled triangles between connected nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dij = Math.sqrt(dx*dx + dy*dy);
+                    if (dij > MAX_DIST) continue;
+
+                    for (let k = j + 1; k < nodes.length; k++) {
+                        const dik = Math.hypot(nodes[i].x - nodes[k].x, nodes[i].y - nodes[k].y);
+                        const djk = Math.hypot(nodes[j].x - nodes[k].x, nodes[j].y - nodes[k].y);
+                        if (dik < MAX_DIST && djk < MAX_DIST) {
+                            const alpha = (1 - (dij + dik + djk) / (MAX_DIST * 3)) * 0.045;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.lineTo(nodes[k].x, nodes[k].y);
+                            ctx.closePath();
+                            ctx.fillStyle = `rgba(100,160,230,${alpha})`;
+                            ctx.fill();
+                        }
+                    }
+
+                    // Draw lines
+                    const lineAlpha = (1 - dij / MAX_DIST) * 0.25;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(80,140,210,${lineAlpha})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            // Draw nodes
+            nodes.forEach(n => {
+                ctx.beginPath();
+                ctx.fillStyle = 'rgba(90,150,220,0.55)';
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function update() {
+            nodes.forEach(n => {
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > W) n.vx *= -1;
+                if (n.y < 0 || n.y > H) n.vy *= -1;
+            });
+        }
+
+        // Apply parallax via CSS transform instead of offsetting draw coords
+        function applyParallax() {
+            canvas.style.transform = `translateY(${-scrollY * PARALLAX}px)`;
+        }
+
+        function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            applyParallax();
+        }, { passive: true });
+
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+
+        resize(); initNodes(); loop();
+    })();
+
     // ── Header Network Canvas Animation ──
     (function() {
         const canvas = document.getElementById('header-canvas');
@@ -976,25 +1144,45 @@ section {
     let currentActive = 'summary';
     document.querySelector('.nav-link[href="#summary"]').classList.add('active');
 
-    // Click handling - simple and reliable
+    // Click handling - buttery smooth scroll
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Update active state
-            document.querySelectorAll('.nav-link').forEach(item => {
-                item.classList.remove('active');
-            });
+
+            document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
             this.classList.add('active');
             currentActive = this.getAttribute('href').substring(1);
-            
-            // Scroll to section
+
             const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
+            if (!target) return;
+
+            const startY   = window.scrollY;
+            const targetY  = target.getBoundingClientRect().top + window.scrollY - 65;
+            const distance = targetY - startY;
+            const duration = 900;
+            let startTime  = null;
+            let rafId      = null;
+
+            // Cancel any previous scroll animation
+            if (window._scrollRaf) cancelAnimationFrame(window._scrollRaf);
+
+            function easeInOutSine(t) {
+                return -(Math.cos(Math.PI * t) - 1) / 2;
             }
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed  = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + distance * easeInOutSine(progress));
+                if (progress < 1) {
+                    rafId = requestAnimationFrame(step);
+                    window._scrollRaf = rafId;
+                }
+            }
+
+            rafId = requestAnimationFrame(step);
+            window._scrollRaf = rafId;
         });
     });
 

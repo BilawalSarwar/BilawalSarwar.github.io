@@ -19,6 +19,32 @@
             line-height: 1.6;
             color: #333;
             padding-top: 60px;
+            background: #f8f9fa;
+        }
+
+            75%  { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+            50%  { transform: translate(40px, 60px) scale(1.1); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+            50%  { transform: translate(-50px, -40px) scale(1.08); }
+            100% { transform: translate(30px, 50px) scale(0.93); }
+        }
+            50%  { transform: translate(60px, -30px) scale(1.12); }
+            100% { transform: translate(-30px, -50px) scale(0.97); }
+        }
+            50%  { transform: translate(-40px, 50px) scale(1.05); }
+            100% { transform: translate(50px, -20px) scale(0.92); }
+        }
+
+        main, .container-fluid {
+            position: relative;
+            z-index: 1;
+        }
+        .card-hover:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4) !important;
         }
         .navbar {
             background-color: var(--primary-color) !important;
@@ -35,6 +61,19 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        #header-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
         .profile-img {
             width: 180px;
@@ -43,10 +82,10 @@
             border: 4px solid white;
         }
         .section-title {
-            border-bottom: 2px solid var(--secondary-color);
+            border-bottom: 2px solid #228ba7;
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
-            color: var(--primary-color);
+            color: #333;
         }
         .timeline-item {
             position: relative;
@@ -70,14 +109,15 @@
             border: 4px solid white;
         }
         .skill-pill {
-            background-color: var(--light-color);
-            color: var(--primary-color);
+            background-color: rgba(255,255,255,0.1);
+            color: #333;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             display: inline-block;
             font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.15);
         }
         .card-hover {
             transition: transform 0.3s, box-shadow 0.3s;
@@ -226,7 +266,8 @@ section {
 
     <!-- Header Section -->
     <header id="summary" class="header text-center mb-5">
-        <div class="container">
+        <canvas id="header-canvas"></canvas>
+        <div class="container header-content">
             <div class="row align-items-center">
                 <div class="col-lg-4">
                     <img src="images/profile.jpg" alt="Bilawal Sarwar" class="profile-img rounded-circle mb-4 shadow-lg">
@@ -841,6 +882,87 @@ section {
    <!-- Replace your entire script section with this: -->
 <!-- Replace your entire script section with this: -->
 <script>
+    // ── Header Network Canvas Animation ──
+    (function() {
+        const canvas = document.getElementById('header-canvas');
+        const ctx = canvas.getContext('2d');
+        const header = document.getElementById('summary');
+        let W, H, nodes;
+        const NODE_COUNT = 60;
+        const MAX_DIST = 160;
+
+        function resize() {
+            W = canvas.width  = header.offsetWidth;
+            H = canvas.height = header.offsetHeight;
+        }
+
+        function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+        function initNodes() {
+            nodes = Array.from({ length: NODE_COUNT }, () => ({
+                x:  randBetween(0, W),
+                y:  randBetween(0, H),
+                vx: randBetween(-0.4, 0.4),
+                vy: randBetween(-0.4, 0.4),
+                r:  randBetween(2, 4),
+                glow: randBetween(0.5, 1)
+            }));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Lines between close nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < MAX_DIST) {
+                        const alpha = (1 - dist / MAX_DIST) * 0.5;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(200,230,255,${alpha})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Glowing nodes
+            nodes.forEach(n => {
+                const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 6);
+                grd.addColorStop(0,   `rgba(100,200,255,${0.4 * n.glow})`);
+                grd.addColorStop(0.4, `rgba(50,150,220,${0.15 * n.glow})`);
+                grd.addColorStop(1,   'transparent');
+                ctx.beginPath();
+                ctx.fillStyle = grd;
+                ctx.arc(n.x, n.y, n.r * 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(180,225,255,${0.9 * n.glow})`;
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function update() {
+            nodes.forEach(n => {
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > W) n.vx *= -1;
+                if (n.y < 0 || n.y > H) n.vy *= -1;
+            });
+        }
+
+        function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+        resize(); initNodes(); loop();
+    })();
+
     // Transparent navbar on scroll
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
@@ -850,7 +972,6 @@ section {
             navbar.classList.remove('scrolled');
         }
     });
-
     // Set initial active state
     let currentActive = 'summary';
     document.querySelector('.nav-link[href="#summary"]').classList.add('active');

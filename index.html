@@ -841,6 +841,1382 @@ section {
     </main>
 
     <!-- ── EUROPASS VIEW ── -->
+    <div id="europass-view" style="display:none; position:fixed; inset:0; z-index:9999; overflow:hidden; background:#edf2f7;">
+
+        <!-- Back bar -->
+        <div style="position:absolute;top:0;left:0;right:0;height:52px;z-index:10000;
+                    background:#004494;display:flex;align-items:center;justify-content:space-between;
+                    padding:0 24px;box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:24px;background:#004494;border-radius:3px;position:relative;border:1px solid rgba(255,255,255,0.2);">
+                    <div style="position:absolute;left:14px;top:8px;width:5px;height:5px;background:#ffcc00;border-radius:50%;
+                        box-shadow:0 -7px 0 #ffcc00,4px -4px 0 #ffcc00,7px 0 0 #ffcc00,4px 4px 0 #ffcc00,0 7px 0 #ffcc00,-4px 4px 0 #ffcc00,-7px 0 0 #ffcc00,-4px -4px 0 #ffcc00;"></div>
+                </div>
+                <span style="color:#fff;font-size:13px;font-weight:600;">europass &nbsp;<span style="opacity:0.6;font-weight:400;">&middot; Bilawal Sarwar</span></span>
+            </div>
+            <button onclick="toggleView()"
+                style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);
+                       color:#fff;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:600;
+                       cursor:pointer;letter-spacing:0.03em;"
+                onmouseover="this.style.background='rgba(255,255,255,0.28)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+                &larr; Back to Portfolio
+            </button>
+        </div>
+
+        <!-- Scrollable europass content -->
+        <div style="position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:auto;">
+            <style>
+
+    :root {
+      --blue: #004494;
+      --blue-2: #0b61c8;
+      --gold: #ffcc00;
+      --ink: #1f2937;
+      --muted: #667085;
+      --line: #d9e2f1;
+      --paper: #ffffff;
+      --soft: #f4f8fd;
+      --green: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #edf2f7; line-height: 1.55; }
+    a { color: var(--blue-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar { background: var(--paper); border-bottom: 1px solid var(--line); }
+    .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .eu { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #344054; }
+    .flag { width: 52px; height: 34px; background: var(--blue); border-radius: 3px; position: relative; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+    .flag::after { content: ""; position: absolute; left: 22px; top: 13px; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; box-shadow: 0 -9px 0 var(--gold), 6px -6px 0 var(--gold), 9px 0 0 var(--gold), 6px 6px 0 var(--gold), 0 9px 0 var(--gold), -6px 6px 0 var(--gold), -9px 0 0 var(--gold), -6px -6px 0 var(--gold); }
+    .available { color: var(--muted); font-size: 14px; text-align: right; }
+    .hero-strip { height: 112px; background: linear-gradient(115deg, var(--blue), #1473d2 58%, #7eb7ef); position: relative; overflow: hidden; }
+    .hero-strip::before { content: ""; position: absolute; inset: auto -5% -75px -5%; height: 150px; background: rgba(255,255,255,.16); transform: rotate(-2deg); }
+    .page { max-width: 1080px; margin: -72px auto 48px; padding: 0 28px; position: relative; }
+    .profile-card { background: var(--paper); border-radius: 6px; box-shadow: 0 18px 45px rgba(31,41,55,.12); overflow: hidden; }
+    header.profile { padding: 42px 44px 28px; text-align: center; border-bottom: 1px solid var(--line); }
+    .avatar { width: 132px; height: 132px; border-radius: 50%; margin: 0 auto 18px; background: linear-gradient(135deg, #183b73, #0f766e); color: white; display: grid; place-items: center; font-size: 44px; font-weight: 700; border: 6px solid white; box-shadow: 0 8px 24px rgba(15,44,95,.25); }
+    h1 { margin: 0; color: var(--blue); font-size: 42px; line-height: 1.1; letter-spacing: 0; }
+    .headline { margin: 10px auto 0; color: var(--muted); max-width: 760px; font-size: 18px; }
+    .personal { margin: 22px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; list-style: none; color: #344054; }
+    .contacts { margin: 24px 0 0; padding: 18px; background: var(--soft); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; text-align: left; border-radius: 6px; }
+    .contacts div { overflow-wrap: anywhere; }
+    .label { font-weight: 700; color: var(--blue); }
+    main { padding: 10px 44px 44px; }
+    section { padding-top: 32px; }
+    h2 { color: var(--blue); font-size: 25px; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 3px solid var(--gold); display: inline-block; letter-spacing: 0; }
+    .timeline { position: relative; margin-left: 14px; padding-left: 28px; border-left: 3px solid var(--line); }
+    .entry { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; margin: 0 0 18px; }
+    .timeline-item { position: relative; }
+    .timeline-item::before { content: ""; position: absolute; left: -38px; top: 24px; width: 15px; height: 15px; border-radius: 50%; background: var(--blue); border: 3px solid var(--gold); }
+    .entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+    h3 { margin: 0; font-size: 19px; color: #12366b; letter-spacing: 0; }
+    .org { margin: 3px 0 0; font-weight: 700; color: var(--green); }
+    time { color: var(--muted); white-space: nowrap; font-weight: 700; font-size: 14px; }
+    .place { margin: 8px 0 12px; color: var(--muted); }
+    ul { margin: 10px 0 0 20px; padding: 0; }
+    li { margin: 6px 0; }
+    .compact p { margin-bottom: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; list-style: none; }
+    .chips li { margin: 0; padding: 8px 11px; border: 1px solid #bcd0ea; background: var(--soft); border-radius: 999px; color: #12366b; font-size: 14px; }
+    .language-grid { display: grid; grid-template-columns: 170px repeat(5, 1fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .language-grid div { padding: 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: white; }
+    .language-grid .head { background: var(--soft); font-weight: 700; color: var(--blue); }
+    .language-grid div:nth-child(6n) { border-right: 0; }
+    .publication-meta { color: var(--muted); font-weight: 700; }
+    .actions { position: sticky; bottom: 18px; display: flex; justify-content: flex-end; padding: 0 28px 24px; pointer-events: none; }
+    .print-btn { pointer-events: auto; border: 0; border-radius: 6px; background: var(--blue); color: white; padding: 12px 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0,68,148,.25); }
+    @media (max-width: 780px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .available { text-align: left; }
+      .page { padding: 0 14px; }
+      header.profile, main { padding-left: 22px; padding-right: 22px; }
+      h1 { font-size: 34px; }
+      .contacts { grid-template-columns: 1fr; }
+      .entry-head { display: block; }
+      time { display: block; margin-top: 6px; }
+      .language-grid { grid-template-columns: 1fr; }
+      .language-grid div { border-right: 0; }
+      .timeline { margin-left: 6px; padding-left: 20px; }
+      .timeline-item::before { left: -30px; }
+    }
+    @media print {
+      body { background: white; }
+      .topbar, .hero-strip, .actions { display: none; }
+      .page { margin: 0; max-width: none; padding: 0; }
+      .profile-card { box-shadow: none; border-radius: 0; }
+      section { break-inside: avoid; }
+      .entry { break-inside: avoid; }
+      a { color: inherit; }
+    }
+  
+            </style>
+<div class="topbar"><div class="topbar-inner"><div class="eu"><div class="flag" aria-hidden="true"></div><div><strong>Europass-style profile</strong><br>Personal profile document</div></div><div class="available">Profile will be available until<br><strong>09 January 2027</strong></div></div></div>
+  <div class="hero-strip"></div>
+  <div class="page"><div class="profile-card">
+    <header class="profile">
+      <div class="avatar" aria-hidden="true">BS</div>
+      <h1>Bilawal Sarwar</h1>
+      <p class="headline">Senior BI and Data Analytics Manager specializing in enterprise analytics, AI strategy, data warehousing, BI platforms, ETL, and executive decision support.</p>
+      <ul class="personal"><li><span class="label">Date of birth:</span> 07/03/1990</li><li><span class="label">Nationality:</span> Pakistani</li></ul>
+      <div class="contacts">
+        <div><span class="label">Mobile:</span> (+966) 533 *** ***</div>
+        <div><span class="label">Email:</span> <a href="mailto:bilawal.sarwar@gmail.com">bilawal.sarwar@gmail.com</a></div>
+        <div><span class="label">Home:</span> Olaya, 12461 Riyadh, Saudi Arabia</div>
+        <div><span class="label">Location:</span> Riyadh, Saudi Arabia</div>
+      </div>
+    </header>
+    <main>
+      <section><h2>Work experience</h2><div class="timeline"><article class="entry timeline-item">
+      <div class="entry-head"><div><h3>SENIOR BI AND DATA ANALYTICS MANAGER</h3><p class="org">SALAM MOBILE TELECOM</p></div><time>04/01/2022 - Current</time></div>
+      <p class="place">Riyadh, Saudi Arabia</p>
+      <ul><li>Develop and implement a comprehensive Data Analytics and AI strategy aligned with organizational goals.</li>
+<li>Identify opportunities to use AI to improve processes and enhance customer experience.</li>
+<li>Promote data-driven decision making and analytics integration across business units.</li>
+<li>Lead, expand, and mentor BI professionals, analysts, and AI specialists.</li>
+<li>Oversee the design, development, and deployment of BI, analytical, and DWH models.</li>
+<li>Deliver insights and strategic recommendations to executive leadership and key stakeholders.</li>
+<li>Evaluate emerging technologies while upholding ethical, governance, privacy, and data protection standards.</li></ul>
+    </article><article class="entry timeline-item">
+      <div class="entry-head"><div><h3>BI ANALYST</h3><p class="org">FLINT CONSULTING</p></div><time>04/10/2018 - 31/12/2021</time></div>
+      <p class="place">Riyadh, Saudi Arabia</p>
+      <ul><li>Designed, built, and published customized interactive Tableau reports and dashboards.</li>
+<li>Translated business requirements into dashboards, ad-hoc reporting, KPIs, and executive analytics.</li>
+<li>Worked with Dossier and MicroStrategy for CBU, EBU, and WBU reporting.</li>
+<li>Built parameterized, drill-down, matrix, chart, and tabular reports using Tableau Desktop.</li>
+<li>Created data marts, maintained historical data integrity, and improved processing speed using ETL models and SQL automations.</li>
+<li>Developed Pentaho jobs and transformations and automated complex Impala, Oracle, and Sybase IQ data processes in Python.</li></ul>
+    </article><article class="entry timeline-item">
+      <div class="entry-head"><div><h3>SENIOR BI CONSULTANT</h3><p class="org">IBM</p></div><time>15/12/2014 - 30/09/2018</time></div>
+      <p class="place">Islamabad, Pakistan</p>
+      <ul><li>Created EDWH models, DMR/RMR models, project packages, and publishing packages using IBM Cognos Framework Manager.</li>
+<li>Built Cognos reports, dashboards, active reports, RAVE visualizations, dynamic cubes, and PowerPlay cubes.</li>
+<li>Developed ETL for data marts, optimized ETL scripts and reports, and validated outputs with PL/SQL queries.</li>
+<li>Administered Oracle BI Publisher users, permissions, variables, parameters, and projects.</li>
+<li>Projects included Etisalat Telecom EDWH, Schlumberger QP POC, HWSW Analytics, Storage Dashboard, Server Insights, and PTCL Siebel CRM Data Mart.</li></ul>
+    </article><article class="entry timeline-item">
+      <div class="entry-head"><div><h3>EXECUTIVE BI AND REPORTING</h3><p class="org">WARID TELECOM</p></div><time>02/12/2013 - 14/12/2014</time></div>
+      <p class="place">Lahore, Pakistan</p>
+      <ul><li>Created Framework Manager models, publishing packages, and best-practice BI model implementations.</li>
+<li>Built complex multi-object reports with lists, crosstabs, images, prompts, cascading prompts, and conditional formatting.</li>
+<li>Scheduled and managed Cognos access groups, bursting, PowerPlay cubes, dashboard reports, and MDX-based reports.</li>
+<li>Migrated reports and dashboards from Oracle Discoverer 10.1 to IBM Cognos 10.2.</li></ul>
+    </article><article class="entry timeline-item">
+      <div class="entry-head"><div><h3>SENIOR OFFICER BI/DWH</h3><p class="org">ZONG TELECOM</p></div><time>24/01/2012 - 30/11/2013</time></div>
+      <p class="place">Islamabad, Pakistan</p>
+      <ul><li>Promoted BI tools and concepts across the organization and gathered business process requirements.</li>
+<li>Contributed to data warehouse BI strategy, corporate DWH solutions, data quality, and governance initiatives.</li>
+<li>Created Crystal and Business Objects reports, maintained universes, and published resources to the repository.</li>
+<li>Developed functions, stored procedures, Framework Manager models, post-batch jobs, and PL/SQL BI solutions.</li></ul>
+    </article></div></section>
+      <section><h2>Education and training</h2><div class="timeline"><article class="entry timeline-item compact">
+      <div class="entry-head"><div><h3>University of Portsmouth</h3><p class="org">MASTERS OF SCIENCE IN DATA ANALYTICS</p></div><time>07/02/2022 - 09/02/2024</time></div>
+      <p class="place">Portsmouth, United Kingdom | EQF level 7 | <a href="https://www.port.ac.uk/">https://www.port.ac.uk/</a></p>
+    </article><article class="entry timeline-item compact">
+      <div class="entry-head"><div><h3>National University of Sciences and Technology</h3><p class="org">BACHELOR OF INFORMATION TECHNOLOGY</p></div><time>01/09/2007 - 31/08/2011</time></div>
+      <p class="place">Islamabad, Pakistan | EQF level 6 | <a href="https://nust.edu.pk/">https://nust.edu.pk/</a></p>
+    </article></div></section>
+      <section><h2>Language skills</h2><div class="language-grid"><div class="head">Language</div><div class="head">Listening</div><div class="head">Reading</div><div class="head">Spoken interaction</div><div class="head">Spoken production</div><div class="head">Writing</div><div><strong>English</strong></div><div>C2: Proficient user</div><div>C2: Proficient user</div><div>C2: Proficient user</div><div>C2: Proficient user</div><div>C1: Proficient user</div></div></section>
+      <section><h2>Skills</h2><ul class="chips"><li>business intelligence</li><li>data warehouse</li><li>BIG DATA</li><li>Python</li><li>R language and R studio</li><li>Oracle Relational Database</li><li>Teradata Database</li><li>Web Development with Python/Django</li><li>TensorFlow, Keras, and PyTorch</li><li>Standard HL7 FHIR</li><li>HMR</li><li>ETL pipeline design and implementation</li><li>Data Science: collection, processing, analysis, and visualization</li><li>Medical terminology, medical records, and medical insurance</li></ul></section>
+      <section><h2>Volunteering</h2><article class="entry compact"><div class="entry-head"><h3>HRMS System for Medical Camp</h3><time>01/10/2021 - Current | Riyadh</time></div><p>Designed and deployed a Django-based Electronic Medical Records solution for a free medical camp. The system supports biannual camps serving 2,000+ patients per event with 400-500 doctors, and is also used daily for care delivery to underprivileged patients.</p></article></section>
+      <section><h2>Projects</h2><article class="entry compact"><div class="entry-head"><h3>IHE and HL7 Enabled Medical Device Integration Framework using SOA</h3><time>01/08/2010 - 31/08/2011</time></div><p>Implemented medical device integration within healthcare systems using a Service-Oriented Architecture. The project provided a standardized middleware interface so healthcare applications did not need manufacturer-specific device integration details.</p></article><article class="entry compact"><div class="entry-head"><h3>Stroke Prediction Model</h3><time>01/07/2022 - 31/12/2022</time></div><p>Analyzed clinical variables to identify key factors behind stroke events and predict outcomes. Random Forest performed better overall, with SVM stronger only in specific cases.</p></article><article class="entry compact"><div class="entry-head"><h3>Enhanced AI Churn Prediction Model for Telecom</h3><time>01/07/2023 - 05/02/2024</time></div><p>Built and evaluated churn prediction models for telecom customers. Light Gradient Boosting Machine delivered the best performance across evaluated models, with strong ROC and F1 improvements after cross-validation.</p></article></section>
+      <section><h2>Honours and awards</h2><article class="entry compact"><div class="entry-head"><h3>CDMP Master</h3><time>DAMA International | 04/03/2025</time></div><p>Certification demonstrating advanced expertise in data governance, architecture, quality, metadata, integration, strategy, and enterprise data management frameworks.</p></article><article class="entry compact"><div class="entry-head"><h3>IBM GBS Service Excellence Award</h3><time>IBM | 11/2016</time></div><p>Recognition for commitment on the Etisalat EDW project, including ETL optimization, data quality improvements, DMR reports, dashboards, active reports, and technical support for the BI Drop 2 team.</p></article><article class="entry compact"><div class="entry-head"><h3>STC Outstanding Performance</h3><time>STC | 10/2021</time></div><p>Recognition for implementing end-to-end business requirements into the technical data warehouse and designing user-friendly executive dashboards for the Group CEO and executives.</p></article></section>
+      <section><h2>Publications</h2><article class="entry compact"><div class="entry-head"><h3>Conversational AI in customer support: Revolution or risk?</h3><time>2025</time></div><p class="publication-meta">Bilawal Sarwar, Joudat Irshad Hashmi | AI and Ethics | Springer Nature Publisher | Vol. 6 Issue 6, Pages 67</p><p><a href="https://link.springer.com/article/10.1007/s43681-025-00893-4">https://link.springer.com/article/10.1007/s43681-025-00893-4</a></p><p>This study explores the operational, experiential, and ethical dimensions of conversational AI in customer support. It highlights efficiency, scalability, accessibility, privacy, bias, transparency, trust, human escalation, and the value of hybrid AI-human support models.</p></article></section>
+    </main>
+    <div class="actions"><button class="print-btn" onclick="window.print()">Print / Save PDF</button></div>
+  </div></div>
+        </div>
+
+    </div>
+
+            <!-- Footer -->
+            <div style="text-align:center;color:#999;font-size:11px;margin-top:24px;padding:16px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/20px-Flag_of_Europe.svg.png"
+                     style="height:12px;vertical-align:middle;margin-right:5px;"/>
+                Europass · European Commission ·
+                <a href="https://europa.eu/europass/eportfolio/api/eprofile/shared-profile/bilawal-sarwar/bc22644e-7a0c-4bcc-97b4-2bc61497fa66?view=html"
+                   target="_blank" style="color:#003399;">View original profile ↗</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-light py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Contact Information</h2>
+            
+            <!-- Combined Map + Contact Cards + Social Media -->
+            <div class="row mt-4">
+                <!-- Map Column -->
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="card contact-card h-100">
+                        <div class="card-body p-0">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3625.350157120818!2d46.682565499999995!3d24.680486999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03538dfcb473%3A0x8c221e943bee72a3!2sAl%20Olaya%2C%20Park!5e0!3m2!1sen!2ssa!4v1743690272891!5m2!1sen!2ssa" 
+                                width="100%" 
+                                height="100%" 
+                                style="min-height: 300px; border:0; border-radius: 8px 8px 0 0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                            <div class="p-4">
+                                <h5><i class="fas fa-map-marker-alt me-2" style="color:#228ba7;"></i>Location</h5>
+                                <p class="mb-0">Riyadh, Saudi Arabia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Info Column -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <!-- Email Card -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card contact-card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-envelope fa-3x mb-3" style="color:#228ba7;"></i>
+                                    <h5>Email</h5>
+                                    <p class="text-muted mb-3">bilawal.sarwar@gmail.com</p>
+                                    <a href="mailto:bilawal.sarwar@gmail.com" class="btn btn-sm btn-outline-primary">
+                                        Send Email
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Phone Card -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card contact-card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-phone fa-3x mb-3" style="color:#228ba7;"></i>
+                                    <h5>Phone</h5>
+                                    <p class="text-muted mb-3">+966 533 *** ***</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">
+                                        Call Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Media Card -->
+                        <div class="col-12">
+                            <div class="card contact-card">
+                                <div class="card-body text-center">
+                                    <h5 class="mb-3">Connect With Me</h5>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="https://linkedin.com/in/bilawalsarwar" class="social-icon">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="https://github.com/BilawalSarwar" class="social-icon">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-stack-overflow"></i>
+                                        </a>
+                                    </div>
+                                    <hr class="my-3">
+                                    <a href="#" class="btn btn-sm" style="background-color:#228ba7;color:#fff;">
+                                        <i class="far fa-calendar me-2"></i> Schedule Meeting
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Resume Button -->
+            <div class="text-center mt-5">
+                <a href="Bilawal_Sarwar_Analytics.pdf" class="btn btn-lg px-4 py-2" style="background-color:#228ba7;color:#fff;" download>
+                    <i class="fas fa-download me-2"></i> Download Full Resume (PDF)
+                </a>
+                <p class="text-muted mt-2">Updated: March 2025 | CDMP Master · PMP Certified</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">© <span id="year"></span> Bilawal Sarwar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Previous HTML content remains exactly the same until the script section -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Updated Custom JS -->
+   <!-- Replace your entire script section with this: -->
+<!-- Replace your entire script section with this: -->
+<script>
+    // Europass toggle
+    function toggleView() {
+        const ep = document.getElementById('europass-view');
+        const btn = document.getElementById('europass-btn');
+        const isVisible = ep.style.display !== 'none';
+        ep.style.display = isVisible ? 'none' : 'block';
+        btn.innerHTML = isVisible
+            ? '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/20px-Flag_of_Europe.svg.png" style="height:13px;border-radius:2px;" alt="EU"/> Europass CV'
+            : '&larr; Portfolio';
+        if (!isVisible) ep.scrollTop = 0;
+    }
+    const epBtn = document.getElementById('europass-btn');
+    epBtn.addEventListener('mouseenter', () => {
+        epBtn.style.background = 'rgba(255,255,255,0.28)';
+        epBtn.style.borderColor = 'rgba(255,255,255,0.5)';
+    });
+    epBtn.addEventListener('mouseleave', () => {
+        epBtn.style.background = 'rgba(255,255,255,0.15)';
+        epBtn.style.borderColor = 'rgba(255,255,255,0.3)';
+    });
+
+    // ── Light Polygon Network Background ──
+    (function() {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H, nodes, scrollY = 0;
+        const NODE_COUNT = 120;
+        const MAX_DIST = 220;
+        const PARALLAX = 0.18;
+
+        function getPageHeight() {
+            return Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight
+            );
+        }
+
+        function resize() {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = getPageHeight();
+            canvas.style.height = H + 'px';
+        }
+
+        function rand(a, b) { return a + Math.random() * (b - a); }
+
+        function initNodes() {
+            nodes = Array.from({ length: NODE_COUNT }, () => ({
+                x:  rand(0, W),
+                y:  rand(0, H),
+                vx: rand(-0.25, 0.25),
+                vy: rand(-0.25, 0.25),
+                r:  rand(1.5, 3.5)
+            }));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Light blue-white gradient background
+            const bg = ctx.createLinearGradient(0, 0, W, H);
+            bg.addColorStop(0,   '#daeeff');
+            bg.addColorStop(0.4, '#edf6ff');
+            bg.addColorStop(1,   '#f7fbff');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, W, H);
+
+            // Draw filled triangles between connected nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dij = Math.sqrt(dx*dx + dy*dy);
+                    if (dij > MAX_DIST) continue;
+
+                    for (let k = j + 1; k < nodes.length; k++) {
+                        const dik = Math.hypot(nodes[i].x - nodes[k].x, nodes[i].y - nodes[k].y);
+                        const djk = Math.hypot(nodes[j].x - nodes[k].x, nodes[j].y - nodes[k].y);
+                        if (dik < MAX_DIST && djk < MAX_DIST) {
+                            const alpha = (1 - (dij + dik + djk) / (MAX_DIST * 3)) * 0.045;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.lineTo(nodes[k].x, nodes[k].y);
+                            ctx.closePath();
+                            ctx.fillStyle = `rgba(100,160,230,${alpha})`;
+                            ctx.fill();
+                        }
+                    }
+
+                    // Draw lines
+                    const lineAlpha = (1 - dij / MAX_DIST) * 0.25;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(80,140,210,${lineAlpha})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            // Draw nodes
+            nodes.forEach(n => {
+                ctx.beginPath();
+                ctx.fillStyle = 'rgba(90,150,220,0.55)';
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function update() {
+            nodes.forEach(n => {
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > W) n.vx *= -1;
+                if (n.y < 0 || n.y > H) n.vy *= -1;
+            });
+        }
+
+        // Apply parallax via CSS transform instead of offsetting draw coords
+        function applyParallax() {
+            canvas.style.transform = `translateY(${-scrollY * PARALLAX}px)`;
+        }
+
+        function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            applyParallax();
+        }, { passive: true });
+
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+
+        resize(); initNodes(); loop();
+    })();
+
+    // ── Header Network Canvas Animation ──
+    (function() {
+        const canvas = document.getElementById('header-canvas');
+        const ctx = canvas.getContext('2d');
+        const header = document.getElementById('summary');
+        let W, H, nodes;
+        const NODE_COUNT = 60;
+        const MAX_DIST = 160;
+
+        function resize() {
+            W = canvas.width  = header.offsetWidth;
+            H = canvas.height = header.offsetHeight;
+        }
+
+        function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+        function initNodes() {
+            nodes = Array.from({ length: NODE_COUNT }, () => ({
+                x:  randBetween(0, W),
+                y:  randBetween(0, H),
+                vx: randBetween(-0.4, 0.4),
+                vy: randBetween(-0.4, 0.4),
+                r:  randBetween(2, 4),
+                glow: randBetween(0.5, 1)
+            }));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Lines between close nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < MAX_DIST) {
+                        const alpha = (1 - dist / MAX_DIST) * 0.5;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(200,230,255,${alpha})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Glowing nodes
+            nodes.forEach(n => {
+                const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 6);
+                grd.addColorStop(0,   `rgba(100,200,255,${0.4 * n.glow})`);
+                grd.addColorStop(0.4, `rgba(50,150,220,${0.15 * n.glow})`);
+                grd.addColorStop(1,   'transparent');
+                ctx.beginPath();
+                ctx.fillStyle = grd;
+                ctx.arc(n.x, n.y, n.r * 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(180,225,255,${0.9 * n.glow})`;
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function update() {
+            nodes.forEach(n => {
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > W) n.vx *= -1;
+                if (n.y < 0 || n.y > H) n.vy *= -1;
+            });
+        }
+
+        function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+        resize(); initNodes(); loop();
+    })();
+
+    // Transparent navbar on scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    // Set initial active state
+    let currentActive = 'summary';
+    document.querySelector('.nav-link[href="#summary"]').classList.add('active');
+
+    // Click handling - buttery smooth scroll
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+            currentActive = this.getAttribute('href').substring(1);
+
+            const target = document.querySelector(this.getAttribute('href'));
+            if (!target) return;
+
+            const targetY = target.getBoundingClientRect().top + window.scrollY - 65;
+
+            // Use native smooth scroll on mobile (no jerk), custom easing on desktop
+            if (window.innerWidth < 992) {
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                return;
+            }
+
+            const startY   = window.scrollY;
+            const distance = targetY - startY;
+            const duration = 900;
+            let startTime  = null;
+
+            if (window._scrollRaf) cancelAnimationFrame(window._scrollRaf);
+
+            function easeInOutSine(t) {
+                return -(Math.cos(Math.PI * t) - 1) / 2;
+            }
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed  = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + distance * easeInOutSine(progress));
+                if (progress < 1) {
+                    window._scrollRaf = requestAnimationFrame(step);
+                }
+            }
+
+            window._scrollRaf = requestAnimationFrame(step);
+        });
+    });
+
+    // Simple scroll handling that works with two columns
+    window.addEventListener('scroll', () => {
+        // Just keep the current active state until another click
+        // This prevents the jumping between sections in two-column layout
+        // The click handler above will update the active state when needed
+    });
+
+    // Current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>        }
+
+        main, .container-fluid {
+            position: relative;
+            z-index: 1;
+        }
+        .card-hover:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4) !important;
+        }
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(44, 62, 80, 0.85) !important;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        #header-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+        .section-title {
+            border-bottom: 2px solid #228ba7;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2.5rem;
+            border-left: 2px solid var(--light-color);
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+        .skill-pill {
+            background-color: rgba(255,255,255,0.1);
+            color: #333;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-nav .nav-link {
+            position: relative;
+            padding: 6px 14px !important;
+            font-size: 13.5px;
+            letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.8) !important;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 14px;
+            width: calc(100% - 28px);
+            height: 2px;
+            background: #228ba7;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fff !important;
+            transform: translateY(-1px);
+        }
+        .navbar-nav .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+        .nav-link.active {
+            font-weight: 600;
+            color: #228ba7 !important;
+        }
+        .nav-link.active::after {
+            transform: scaleX(1) !important;
+            background: #228ba7;
+        }
+        @media (max-width: 991px) {
+            .navbar-nav .nav-link::after { display: none; }
+            .navbar-nav .nav-link:hover { transform: none; }
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            transition: all 0.3s;
+            margin: 0 5px;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: #3498db;
+            text-decoration: none;
+        }
+        .contact-card {
+            transition: all 0.3s;
+            border: none;
+            border-radius: 10px;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Updated Certifications Styles */
+        .certification-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .certification-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .certification-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            transition: all 0.2s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .cert-logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .cert-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cert-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .cert-details {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .certification-item:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-color: #dee2e6;
+        }
+        
+        .certification-item:active {
+            transform: translateY(0);
+        }
+        
+        /* Navigation Active State */
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: #228ba7 !important;
+            font-weight: 600;
+        }
+
+/* Ensure sections scroll properly */
+section {
+    scroll-margin-top: 80px;
+}
+    </style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Bilawal Sarwar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#summary">Summary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#certifications">Certifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#awards">Awards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <button id="europass-btn" onclick="toggleView()" title="Switch to Europass view"
+                style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;
+                       padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;
+                       letter-spacing:0.04em;cursor:pointer;transition:all 0.25s ease;
+                       display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/20px-Flag_of_Europe.svg.png"
+                     style="height:13px;border-radius:2px;" alt="EU"/>
+                Europass CV
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="summary" class="header text-center mb-5">
+        <canvas id="header-canvas"></canvas>
+        <div class="container header-content">
+            <div class="row align-items-center">
+                <div class="col-lg-4">
+                    <img src="images/profile.jpg" alt="Bilawal Sarwar" class="profile-img rounded-circle mb-4 shadow-lg">
+                </div>
+                <div class="col-lg-8 text-lg-start text-center">
+                    <h1 class="display-4 fw-bold mb-3">Bilawal Sarwar</h1>
+                    <p class="lead mb-4">Senior BI & Data Analytics Manager | CDMP Master Level </p>
+                    <div class="d-flex flex-wrap justify-content-lg-start justify-content-center gap-3">
+                        <a href="https://www.linkedin.com/in/bilawalsarwar/" class="btn btn-light btn-lg px-4">
+                            <i class="fab fa-linkedin me-2"></i> LinkedIn
+                        </a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-envelope me-2"></i> Contact
+                        </a>
+                        <a href="Bilawal_Sarwar_Analytics.pdf" class="btn btn-outline-light btn-lg px-4" download>
+                            <i class="fas fa-download me-2"></i> Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-top border-light border-opacity-25">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> Riyadh, Saudi Arabia</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0"><i class="fas fa-envelope me-2"></i> bilawal.sarwar@gmail.com</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0"><i class="fas fa-phone me-2"></i> +966 533 *** ***</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mb-5">
+        <!-- Professional Summary -->
+        <section class="mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="section-title">Professional Summary</h2>
+                    <p class="lead">Result-driven Senior Data Management Professional with 14+ years of expertise in Data Warehousing, BI, ETL, and Data Analytics. Distinguished for transforming enterprise business applications and databases, with a sharp acumen in OLTP/OLAP system analysis and design. Demonstrated mastery in designing and implementing enterprise data strategies and designing database schemas, including Star and Snowflake. Proven track record in delivering executive dashboards with vital KPIs and key insights. Adept at leading cross-functional teams and driving strategic decisions through robust data governance, metadata management, and data quality initiatives</p>
+                    <p>Specialized in AI/ML,BI/ETL and Data Warehouse solutions across on-premise and cloud environments. Strong background in DataOps best practices and cross-functional team leadership</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-8">
+                <!-- Work Experience -->
+                <section id="experience" class="mb-5">
+                    <h2 class="section-title">Work Experience</h2>
+                    
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>Senior BI & Data Analytics Manager</h4>
+                                <h5>Salam Mobile Telecom | Full-time</h5>
+                                <p class="text-muted">Jan 2022 - Present | Riyadh, Saudi Arabia</p>
+                                <ul>
+                                    <li>Developed an end-to-end data warehousing solution for Salam Mobile from launch, facilitating a revenue increase to over $10 million monthly and propelling the company to become the 4th largest operator out of 08 in the market, all within 18 months</li>
+                                    <li>Developed a predictive churn model using Python and machine learning techniques, reducing customer churn by 15%, retaining over 30,000 customers, and saving the company approximately $0.5 million annually by enhancing retention strategies</li>
+                                    <li>Implemented live sales and forecasting systems for over 50 dealers and partners, utilizing Geo-mapping technology to identify high-potential sales areas, resulting in a 20% increase in sales and reducing market analysis time by 30%</li>
+                                    <li>Implemented Gen AI for Marketing and BI Department</li>
+                                </ul>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">Django</span>
+                                <span class="badge" style="background-color: #228ba7;">SQL</span>
+                                <span  class="badge" style="background-color: #228ba7;">Vertica</span>
+                                <span  class="badge" style="background-color: #228ba7;">Oracle</span>
+                                <span  class="badge" style="background-color: #228ba7;">Tableau</span>
+                                <span  class="badge" style="background-color: #228ba7;">Power BI</span>
+                                <span  class="badge" style="background-color: #228ba7;">Microsoft SSRS</span>
+                                <span  class="badge" style="background-color: #228ba7;">Microsoft SQL Server</span>
+                                <span  class="badge" style="background-color: #228ba7;">MariaDB</span>
+                                <span  class="badge" style="background-color: #228ba7;">Informatica</span>
+                                <span  class="badge" style="background-color: #228ba7;">Pentaho</span>
+                                <span  class="badge" style="background-color: #228ba7;">Metabase</span>
+                                <span  class="badge" style="background-color: #228ba7;">Google PaLM 2</span>
+                                <span  class="badge" style="background-color: #228ba7;">LangChain</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>BI Analyst</h4>
+                                <h5>Flint Consulting | Project STC | Full-time</h5>
+                                <p class="text-muted">Oct 2018 - Dec 2021 | Riyadh, Saudi Arabia</p>
+                                <ul>
+                                    <li>Designed analytical roadmap, deliverables, and timelines; proposed BI architecture and release management best practices</li>
+                                    <li>Developed and implemented 130 new Key Performance Indicators (KPIs) to establish a comprehensive 360-degree view of customer experience at STC Telecom, encompassing B2C, B2B, and W2C sectors</li>
+                                    <li>Developed executive-level dashboards that provided real-time insights into network performance and live customer experience during all national events, increasing CSAT AND NPS Score by 20%</li>
+                                </ul>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">MySQL</span>
+                                <span class="badge" style="background-color: #228ba7;">Hive</span>
+                                <span class="badge" style="background-color: #228ba7;">Impala</span>
+                                <span class="badge" style="background-color: #228ba7;">KNIME Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">Teradata</span>
+                                <span class="badge" style="background-color: #228ba7;">MicroStrategy Dossier</span>
+                                <span class="badge" style="background-color: #228ba7;">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>Senior BI Consultant</h4>
+                                <h5>IBM Global | Full-time</h5>
+                                <p class="text-muted">Dec 2014 - Sep 2018 | Islamabad, Pakistan</p>
+                                <ul>
+                                    <li>Developed a centralized data model that enabled over 150 end-users to perform self-service reporting, reducing report and dashboard support calls by 45% and decreased IT intervention by 25 hours per month</li>
+                                    <li>Built 20 advanced DMR reports using MDX functions, enabling multidimensional data analysis for 5 key business units</li>
+                                    <li>Developed Model and Reports to reconcile and validate 35 TB of legacy Teradata and new IBM Netezza TwinFin server, ensuring report numbers matched with over 99% accuracy, thereby enhancing data integrity and reporting reliability</li>
+                                    <li>Authored essential documentation, coordinated playback sessions with SMEs and IT, and secured formal sign-off of $4 million</li>
+                                </ul>
+                                <span class="badge" style="background-color: #228ba7;">Python</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Netezza</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">Watson AI</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle BIP</span>
+                                <span class="badge" style="background-color: #228ba7;">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>Executive BI and Reporting</h4>
+                                <h5>Warid Telecom | Full-time</h5>
+                                <p class="text-muted">Dec 2013 - Dec 2014 | Lahore, Pakistan</p>
+                                <ul>
+                                    <li>Developed 100+ reports and dashboards, significantly enhancing reporting capabilities and ensuring a successful Go-Live</li>
+                                    <li>Developed self-service data cubes, boosting efficiency by 20% for more than 30 users across 5 departments</li>
+                                    <li>Developed 30+ ETL jobs and pipeline solutions using DataStage and PL/SQL, enhancing data processing efficiency by 55%</li>
+                                    <li>Trained over 60 end-users and integrated 3 new vendors, boosting system adoption rate by 40%</li>
+                                </ul>
+                                <span class="badge" style="background-color: #228ba7;">Oracle</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Netezza</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">SAS Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos Analytics</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
+                                <span class="badge" style="background-color: #228ba7;">Oracle Discoverer</span>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					<div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>Senior Officer BI/DWH</h4>
+                                <h5>Zong Telecom | Full-time</h5>
+                                <p class="text-muted">Jan 2012 - Nov 2013 | Islamabad, Pakistan</p>
+                                <ul>
+                                    <li>Optimized database code through query tuning, improving report performance by 60% and reducing system load by 20%</li>
+                                    <li>Implemented best practices in data models, enhancing performance and maintainability, which reduced query times by 30%</li>
+                                    <li>Automated 30+ tasks using scripts, saving 10 hours per week in manual efforts and increasing operational efficiency by 15%</li>
+                                </ul>
+                                <span class="badge" style="background-color: #228ba7;">Oracle</span>
+                                <span class="badge" style="background-color: #228ba7;">Teradata</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DB2</span>
+                                <span class="badge" style="background-color: #228ba7;">SAP Business Objects</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM Cognos</span>
+                                <span class="badge" style="background-color: #228ba7;">IBM DataStage</span>
+                            </div>
+                        </div>
+                    </div>
+					
+                </section>
+
+                <!-- Projects -->
+                <section id="projects" class="mb-5">
+                    <h2 class="section-title">Projects</h2>
+                    
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>HRMS System for Medical Camp (EMR)</h4>
+                            <p class="text-muted">Volunteer Project · pdgrclinic.com | Oct 2021 – Present</p>
+                            <p>Designed and deployed a Django-based Electronic Medical Records (EMR) solution for a free medical camp, operational for 3+ years. Supports biannual camps treating 2,000+ patients per event with 400–500 doctors. Used daily by doctors to provide care to underprivileged patients.</p>
+                            <ul>
+                                <li>Full EMR system supporting 2,000+ patients per biannual event with 400–500 participating doctors</li>
+                                <li>Operational daily for underprivileged patient care</li>
+                            </ul>
+                            <span class="badge" style="background-color: #228ba7;">Django</span>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">HL7 FHIR</span>
+                            <span class="badge" style="background-color: #228ba7;">HMR Design</span>
+                            <a href="https://pdgrclinic.com/accounts/login/?next=/" target="_blank" class="btn btn-sm btn-outline-secondary ms-2">View Live ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>Enhanced AI Churn Prediction Model for Telecom</h4>
+                            <p class="text-muted">University of Portsmouth · MSc Thesis | Jul 2023 – Feb 2024</p>
+                            <p>Evaluated 13 ML models for telecom churn prediction. Selected LightGBM as best performer. After 10-fold cross-validation, ROC-AUC improved from 0.9 to 0.997. Confusion matrix shows only ~2.5% false positives.</p>
+                            <ul>
+                                <li>Evaluated 13 models — LightGBM, XGBoost, Random Forest, Gradient Boosting, SVM, Gaussian Naïve Bayes and more</li>
+                                <li>ROC-AUC improved from 0.9 to 0.997; identified service quality, billing issues and usage trends as critical churn factors</li>
+                            </ul>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">LightGBM</span>
+                            <span class="badge" style="background-color: #228ba7;">XGBoost</span>
+                            <span class="badge" style="background-color: #228ba7;">Random Forest</span>
+                            <span class="badge" style="background-color: #228ba7;">Scikit-learn</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>Stroke Prediction Model</h4>
+                            <p class="text-muted">Academic · UCI Heart Failure Dataset | Jul 2022 – Dec 2022</p>
+                            <p>Analyzed patient variables to accurately predict stroke events. Random Forest performed best overall; SVM outperformed RF in specific cases. Key challenge was imbalanced dataset handling and optimal algorithm selection.</p>
+                            <span class="badge" style="background-color: #228ba7;">Python</span>
+                            <span class="badge" style="background-color: #228ba7;">Random Forest</span>
+                            <span class="badge" style="background-color: #228ba7;">SVM</span>
+                            <span class="badge" style="background-color: #228ba7;">Data Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <h4>IHE &amp; HL7 Medical Device Integration Framework using SOA</h4>
+                            <p class="text-muted">NUST · Final Year Project | Aug 2010 – Aug 2011</p>
+                            <p>Implemented medical device integration within healthcare systems using Service-Oriented Architecture (SOA). Used IHE Device Enterprise Communication (DEC) to bridge heterogeneous lab devices with EMR systems via a standardized service interface — eliminating vendor-specific protocol dependencies.</p>
+                            <span class="badge" style="background-color: #228ba7;">SOA</span>
+                            <span class="badge" style="background-color: #228ba7;">HL7 FHIR</span>
+                            <span class="badge" style="background-color: #228ba7;">IHE DEC</span>
+                            <span class="badge" style="background-color: #228ba7;">EMR</span>
+                            <span class="badge" style="background-color: #228ba7;">Java</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-4">
+                <!-- Certifications -->
+                <section id="certifications" class="mb-5">
+                    <h2 class="section-title">Certifications</h2>
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <div class="certification-container">
+                                <!-- CDMP Certification -->
+                                <a href="https://www.dama.org/cpages/cdmp-certification" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/cdmp-master-badge.png" alt="CDMP Master">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name">CDMP Master</div>
+                                            <div class="cert-details">DAMA International • 2025</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <!-- PMP Certification -->
+                                <a href="https://www.credly.com/earner/earned/badge/c88d9d97-b37e-4e5b-abab-ff25c8c2c766" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/pmp.png" alt="PMP Certified">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name">PMP</div>
+                                            <div class="cert-details">PMI • 2023</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                                                <!-- Google Certification -->
+                                <a href="https://www.credly.com/badges/1701a702-f1fa-4e9a-b862-715e88054d0c/public_url" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/GCC_badge_python.png" alt="Google Certified">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name">Python Professional Certificate</div>
+                                            <div class="cert-details">Google • 2021</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Python Certification -->
+                                <a href="https://www.coursera.org/account/accomplishments/specialization/BL6U2U44CA8P" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/Python.png" alt="Python Certified">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name">Python Specialization</div>
+                                            <div class="cert-details">Coursera • 2015</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <a href="https://www.credly.com/users/bilawalsarwar" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/credly.svg" alt="Credly Certified">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name">All Certifications</div>
+                                            <div class="cert-details">Credly • All</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section id="education" class="mb-5">
+                    <h2 class="section-title">Education</h2>
+                    
+                    <!-- Master's Degree -->
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>MSc Data Analytics</h4>
+                                <h5>University of Portsmouth</h5>
+                                <p class="text-muted">2022 - 2024</p>
+                                <p>Graduated with Distinction </p>
+                                <p>Specialization in Artificial Intelligence</p>
+                                <p>Research Thesis: "Enhanced AI Churn Prediction Model for Telecom"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bachelor's Degree -->
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>BS Information Technology</h4>
+                                <h5>National University of Sciences and Technology</h5>
+                                <p class="text-muted">2007 - 2011</p>
+                                <p>Graduated with Honors</p>
+                                <p>Specialization in Data Warehousing & Data Mining</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+				
+				
+				
+				                <!-- Publications -->
+                <section id="publications" class="mb-5">
+                    <h2 class="section-title">Publications</h2>
+                    
+                    
+                    <!-- Conversational AI in customer support: Revolution or risk? -->
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>AI in Customer Support</h4>
+                                <h5>Authors: Bilawal Sarwar, Joudat Irshad Hashmi</h5>
+								<h5>Journal Name: AI and Ethics</h5>
+								<h5>Publisher: Springer Nature Publisher</h5>								
+                                <p class="text-muted">2025</p>
+                                <p>Conversational AI in customer support: Revolution or risk?</p>
+								<a href="https://link.springer.com/article/10.1007/s43681-025-00893-4" target="_blank" class="certification-link">
+                                    <div class="certification-item">
+                                        <div class="cert-logo">
+                                            <img src="images/springer.png" alt="Credly Certified">
+                                        </div>
+                                        <div class="cert-text">
+                                            <div class="cert-name"> Springer Nature</div>
+                                            <div class="cert-details">Springer Nature Publications</div>
+                                        </div>
+                                    </div>
+                                </a>
+								
+                                <!--<p>https://link.springer.com/article/10.1007/s43681-025-00893-4</p>-->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+				
+				
+
+                <!-- Skills -->
+                <section id="skills" class="mb-5">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h5 class="mb-3">Technical Skills</h5>
+                            <div class="mb-4">
+                                <span class="skill-pill">Business Intelligence</span>
+                                <span class="skill-pill">Data Warehousing</span>
+                                <span class="skill-pill">Data Engineering</span>
+                                <span class="skill-pill">Data Modelling</span>
+                                <span class="skill-pill">Executive Reporting</span>
+                                <span class="skill-pill">Requirements Elicitation</span>
+                                <span class="skill-pill">Data Storytelling</span>
+                                <span class="skill-pill">Data Strategy</span>
+                                <span class="skill-pill">Practice Development</span>
+                                <span class="skill-pill">Client Management</span>
+                                <span class="skill-pill">Project Management</span>
+                                <span class="skill-pill">Data Governance</span>
+                            </div>
+                            
+                            <h5 class="mb-3">Professional Skills</h5>
+                            <div>
+                                <span class="skill-pill">Team Leadership</span>
+                                <span class="skill-pill">Agile Methodologies</span>
+                                <span class="skill-pill">System Architecture</span>
+                                <span class="skill-pill">Technical Documentation</span>
+                                <span class="skill-pill">Mentoring</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+				
+				<!-- Tech Stack -->
+                <section id="techstack" class="mb-5">
+                    <h2 class="section-title">Tech Stack</h2>
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h5 class="mb-3">Tools</h5>
+                            <div class="mb-4">
+                                <span class="skill-pill">PowerBI</span>
+                                <span class="skill-pill">Tableau</span>
+                                <span class="skill-pill">Cognos</span>
+                                <span class="skill-pill">MicroStrategy</span>
+                                <span class="skill-pill">Oracle BIP</span>
+                                <span class="skill-pill">SAP Business Objects</span>
+                                <span class="skill-pill">Metabase</span>
+                                <span class="skill-pill">Datastage</span>
+                                <span class="skill-pill">Pentaho</span>
+                                <span class="skill-pill">KNIME</span>
+                            </div>
+                            
+                            <h5 class="mb-3">Languages</h5>
+                            <div>
+                                <span class="skill-pill">Python</span>
+                                <span class="skill-pill">R</span>
+                                <span class="skill-pill">PL-SQL</span>
+                                <span class="skill-pill">Shell Script</span>
+                                <span class="skill-pill">MDX</span>
+                                <span class="skill-pill">Oracle</span>
+                                <span class="skill-pill">Vertica</span>
+                                <span class="skill-pill">Teradata</span>
+                                <span class="skill-pill">Hive</span>
+                                <span class="skill-pill">Impala</span>
+                                <span class="skill-pill">MySQL</span>
+                                <span class="skill-pill">MS SQL Server</span>
+                                <span class="skill-pill">IBM DB2</span>
+                                <span class="skill-pill">Sybase IQ</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Honours & Awards -->
+                <section id="awards" class="mb-5">
+                    <h2 class="section-title">Honours &amp; Awards</h2>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>STC Outstanding Performance Award</h4>
+                                <h5>STC</h5>
+                                <p class="text-muted">October 2021</p>
+                                <p>For outstanding performance in STC Customer Experience Department by implementing end-to-end Business Requirements into Technical Data Warehouse and designing user-friendly dashboards for Group CEO and executives.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover mb-4">
+                        <div class="card-body">
+                            <div class="timeline-item">
+                                <h4>IBM GBS Service Excellence Award</h4>
+                                <h5>IBM</h5>
+                                <p class="text-muted">November 2016</p>
+                                <p>Nominated for excellent commitment on Etisalat EDW project — key role in optimization of Drop 1 batch jobs by converting ELT to ETL, designed DMR reports with advanced MDX functions for Drop 2, organized meetings with Etisalat and ETL teams, and provided technical expertise to the project team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+				
+				
+            </div>
+        </div>
+    </main>
+
+    <!-- ── EUROPASS VIEW ── -->
     <div id="europass-view" style="display:none; position:fixed; inset:0; z-index:9999; background:#004494; overflow:hidden;">
 
         <!-- Back button bar -->

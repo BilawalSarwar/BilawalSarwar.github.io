@@ -324,14 +324,13 @@ section {
                     </li>
                 </ul>
             </div>
-            <button id="europass-btn" onclick="toggleView()" title="Switch to Europass view"
+            <button id="profile-btn" onclick="toggleProfileView()" title="Switch to Profile view"
                 style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;
                        padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;
                        letter-spacing:0.04em;cursor:pointer;transition:all 0.25s ease;
                        display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/20px-Flag_of_Europe.svg.png"
-                     style="height:13px;border-radius:2px;" alt="EU"/>
-                Europass CV
+                <i class="fas fa-id-card" aria-hidden="true"></i>
+                Profile CV
             </button>
         </div>
     </nav>
@@ -840,21 +839,20 @@ section {
         </div>
     </main>
 
-    <!-- ── EUROPASS VIEW ── -->
-    <div id="europass-view" style="display:none; position:fixed; inset:0; z-index:9999; overflow:hidden; background:#edf2f7;">
+    <!-- ── PROFILE VIEW ── -->
+    <div id="profile-view" style="display:none; position:fixed; inset:0; z-index:9999; overflow:hidden; background:#edf2f7;">
 
         <!-- Back bar -->
         <div style="position:absolute;top:0;left:0;right:0;height:52px;z-index:10000;
-                    background:#004494;display:flex;align-items:center;justify-content:space-between;
+                    background:linear-gradient(135deg,#2c3e50,#3498db 62%,#22a6b3);display:flex;align-items:center;justify-content:space-between;
                     padding:0 24px;box-shadow:0 2px 10px rgba(0,0,0,0.3);">
             <div style="display:flex;align-items:center;gap:10px;">
-                <div style="width:36px;height:24px;background:#004494;border-radius:3px;position:relative;border:1px solid rgba(255,255,255,0.2);">
-                    <div style="position:absolute;left:14px;top:8px;width:5px;height:5px;background:#ffcc00;border-radius:50%;
-                        box-shadow:0 -7px 0 #ffcc00,4px -4px 0 #ffcc00,7px 0 0 #ffcc00,4px 4px 0 #ffcc00,0 7px 0 #ffcc00,-4px 4px 0 #ffcc00,-7px 0 0 #ffcc00,-4px -4px 0 #ffcc00;"></div>
+                <div style="width:36px;height:24px;background:rgba(255,255,255,0.16);border-radius:6px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.35);">
+                    <i class="fas fa-id-card" style="color:#fff;font-size:13px;" aria-hidden="true"></i>
                 </div>
-                <span style="color:#fff;font-size:13px;font-weight:600;">europass &nbsp;<span style="opacity:0.6;font-weight:400;">&middot; Bilawal Sarwar</span></span>
+                <span style="color:#fff;font-size:13px;font-weight:600;">Profile CV &nbsp;<span style="opacity:0.6;font-weight:400;">&middot; Bilawal Sarwar</span></span>
             </div>
-            <button onclick="toggleView()"
+            <button onclick="toggleProfileView()"
                 style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);
                        color:#fff;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:600;
                        cursor:pointer;letter-spacing:0.03em;"
@@ -864,7 +862,7 @@ section {
             </button>
         </div>
 
-        <!-- Scrollable europass content -->
+        <!-- Scrollable profile content -->
         <div style="position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:auto;">
             <style>
 
@@ -879,78 +877,77 @@ section {
       --soft: #f4f8fd;
       --green: #0f766e;
     }
-    #europass-view * { box-sizing: border-box; }
-    #europass-view { font-family: Arial, Helvetica, sans-serif; color: var(--ink); line-height: 1.55; }
-    #europass-view a { color: var(--blue-2); text-decoration: none; }
-    #europass-view a:hover { text-decoration: underline; }
-    #europass-view .topbar { background: var(--paper); border-bottom: 1px solid var(--line); }
-    #europass-view .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    #europass-view .eu { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #344054; }
-    #europass-view .flag { width: 52px; height: 34px; background: var(--blue); border-radius: 3px; position: relative; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
-    #europass-view .flag::after { content: ""; position: absolute; left: 22px; top: 13px; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; box-shadow: 0 -9px 0 var(--gold), 6px -6px 0 var(--gold), 9px 0 0 var(--gold), 6px 6px 0 var(--gold), 0 9px 0 var(--gold), -6px 6px 0 var(--gold), -9px 0 0 var(--gold), -6px -6px 0 var(--gold); }
-    #europass-view .available { color: var(--muted); font-size: 14px; text-align: right; }
-    #europass-view .hero-strip { height: 112px; background: linear-gradient(115deg, var(--blue), #1473d2 58%, #7eb7ef); position: relative; overflow: hidden; }
-    #europass-view .hero-strip::before { content: ""; position: absolute; inset: auto -5% -75px -5%; height: 150px; background: rgba(255,255,255,.16); transform: rotate(-2deg); }
-    #europass-view .page { max-width: 1080px; margin: -72px auto 48px; padding: 0 28px; position: relative; }
-    #europass-view .profile-card { background: var(--paper); border-radius: 6px; box-shadow: 0 18px 45px rgba(31,41,55,.12); overflow: hidden; }
-    #europass-view header.profile { padding: 42px 44px 28px; text-align: center; border-bottom: 1px solid var(--line); }
-    #europass-view .avatar { width: 132px; height: 132px; border-radius: 50%; margin: 0 auto 18px; background: linear-gradient(135deg, #183b73, #0f766e); color: white; display: grid; place-items: center; font-size: 44px; font-weight: 700; border: 6px solid white; box-shadow: 0 8px 24px rgba(15,44,95,.25); }
-    #europass-view h1 { margin: 0; color: var(--blue); font-size: 42px; line-height: 1.1; letter-spacing: 0; }
-    #europass-view .headline { margin: 10px auto 0; color: var(--muted); max-width: 760px; font-size: 18px; }
-    #europass-view .personal { margin: 22px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; list-style: none; color: #344054; }
-    #europass-view .contacts { margin: 24px 0 0; padding: 18px; background: var(--soft); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; text-align: left; border-radius: 6px; }
-    #europass-view .contacts div { overflow-wrap: anywhere; }
-    #europass-view .label { font-weight: 700; color: var(--blue); }
-    #europass-view main { padding: 10px 44px 44px; }
-    #europass-view section { padding-top: 32px; }
-    #europass-view h2 { color: var(--blue); font-size: 25px; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 3px solid var(--gold); display: inline-block; letter-spacing: 0; }
-    #europass-view .timeline { position: relative; margin-left: 14px; padding-left: 28px; border-left: 3px solid var(--line); }
-    #europass-view .entry { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; margin: 0 0 18px; }
-    #europass-view .timeline-item { position: relative; }
-    #europass-view .timeline-item::before { content: ""; position: absolute; left: -38px; top: 24px; width: 15px; height: 15px; border-radius: 50%; background: var(--blue); border: 3px solid var(--gold); }
-    #europass-view .entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
-    #europass-view h3 { margin: 0; font-size: 19px; color: #12366b; letter-spacing: 0; }
-    #europass-view .org { margin: 3px 0 0; font-weight: 700; color: var(--green); }
-    #europass-view time { color: var(--muted); white-space: nowrap; font-weight: 700; font-size: 14px; }
-    #europass-view .place { margin: 8px 0 12px; color: var(--muted); }
-    #europass-view ul { margin: 10px 0 0 20px; padding: 0; }
-    #europass-view li { margin: 6px 0; }
-    #europass-view .compact p { margin-bottom: 0; }
-    #europass-view .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; list-style: none; }
-    #europass-view .chips li { margin: 0; padding: 8px 11px; border: 1px solid #bcd0ea; background: var(--soft); border-radius: 999px; color: #12366b; font-size: 14px; }
-    #europass-view .language-grid { display: grid; grid-template-columns: 170px repeat(5, 1fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-    #europass-view .language-grid div { padding: 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: white; }
-    #europass-view .language-grid .head { background: var(--soft); font-weight: 700; color: var(--blue); }
-    #europass-view .language-grid div:nth-child(6n) { border-right: 0; }
-    #europass-view .publication-meta { color: var(--muted); font-weight: 700; }
-    #europass-view .actions { position: sticky; bottom: 18px; display: flex; justify-content: flex-end; padding: 0 28px 24px; pointer-events: none; }
-    #europass-view .print-btn { pointer-events: auto; border: 0; border-radius: 6px; background: var(--blue); color: white; padding: 12px 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0,68,148,.25); }
+    #profile-view * { box-sizing: border-box; }
+    #profile-view { font-family: Arial, Helvetica, sans-serif; color: var(--ink); line-height: 1.55; }
+    #profile-view a { color: var(--blue-2); text-decoration: none; }
+    #profile-view a:hover { text-decoration: underline; }
+    #profile-view .topbar { background: var(--paper); border-bottom: 1px solid var(--line); }
+    #profile-view .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    #profile-view .profile-brand { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #344054; }
+    #profile-view .profile-mark { width: 52px; height: 34px; background: linear-gradient(135deg,#2c3e50,#3498db 62%,#22a6b3); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+    #profile-view .available { color: var(--muted); font-size: 14px; text-align: right; }
+    #profile-view .hero-strip { height: 112px; background: linear-gradient(135deg,#2c3e50,#3498db 62%,#22a6b3); position: relative; overflow: hidden; }
+    #profile-view .hero-strip::before { content: ""; position: absolute; inset: auto -5% -75px -5%; height: 150px; background: rgba(255,255,255,.16); transform: rotate(-2deg); }
+    #profile-view .page { max-width: 1080px; margin: -72px auto 48px; padding: 0 28px; position: relative; }
+    #profile-view .profile-card { background: var(--paper); border-radius: 6px; box-shadow: 0 18px 45px rgba(31,41,55,.12); overflow: hidden; }
+    #profile-view header.profile { padding: 42px 44px 28px; text-align: center; border-bottom: 1px solid var(--line); }
+    #profile-view .avatar { width: 132px; height: 132px; border-radius: 50%; margin: 0 auto 18px; background: linear-gradient(135deg, #183b73, #0f766e); color: white; display: grid; place-items: center; font-size: 44px; font-weight: 700; border: 6px solid white; box-shadow: 0 8px 24px rgba(15,44,95,.25); }
+    #profile-view h1 { margin: 0; color: var(--blue); font-size: 42px; line-height: 1.1; letter-spacing: 0; }
+    #profile-view .headline { margin: 10px auto 0; color: var(--muted); max-width: 760px; font-size: 18px; }
+    #profile-view .personal { margin: 22px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; list-style: none; color: #344054; }
+    #profile-view .contacts { margin: 24px 0 0; padding: 18px; background: var(--soft); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; text-align: left; border-radius: 6px; }
+    #profile-view .contacts div { overflow-wrap: anywhere; }
+    #profile-view .label { font-weight: 700; color: var(--blue); }
+    #profile-view main { padding: 10px 44px 44px; }
+    #profile-view section { padding-top: 32px; }
+    #profile-view h2 { color: var(--blue); font-size: 25px; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 3px solid var(--gold); display: inline-block; letter-spacing: 0; }
+    #profile-view .timeline { position: relative; margin-left: 14px; padding-left: 28px; border-left: 3px solid var(--line); }
+    #profile-view .entry { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; margin: 0 0 18px; }
+    #profile-view .timeline-item { position: relative; }
+    #profile-view .timeline-item::before { content: ""; position: absolute; left: -38px; top: 24px; width: 15px; height: 15px; border-radius: 50%; background: var(--blue); border: 3px solid var(--gold); }
+    #profile-view .entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+    #profile-view h3 { margin: 0; font-size: 19px; color: #12366b; letter-spacing: 0; }
+    #profile-view .org { margin: 3px 0 0; font-weight: 700; color: var(--green); }
+    #profile-view time { color: var(--muted); white-space: nowrap; font-weight: 700; font-size: 14px; }
+    #profile-view .place { margin: 8px 0 12px; color: var(--muted); }
+    #profile-view ul { margin: 10px 0 0 20px; padding: 0; }
+    #profile-view li { margin: 6px 0; }
+    #profile-view .compact p { margin-bottom: 0; }
+    #profile-view .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; list-style: none; }
+    #profile-view .chips li { margin: 0; padding: 8px 11px; border: 1px solid #bcd0ea; background: var(--soft); border-radius: 999px; color: #12366b; font-size: 14px; }
+    #profile-view .language-grid { display: grid; grid-template-columns: 170px repeat(5, 1fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    #profile-view .language-grid div { padding: 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: white; }
+    #profile-view .language-grid .head { background: var(--soft); font-weight: 700; color: var(--blue); }
+    #profile-view .language-grid div:nth-child(6n) { border-right: 0; }
+    #profile-view .publication-meta { color: var(--muted); font-weight: 700; }
+    #profile-view .actions { position: sticky; bottom: 18px; display: flex; justify-content: flex-end; padding: 0 28px 24px; pointer-events: none; }
+    #profile-view .print-btn { pointer-events: auto; border: 0; border-radius: 6px; background: var(--blue); color: white; padding: 12px 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0,68,148,.25); }
     @media (max-width: 780px) {
-      #europass-view .topbar-inner { align-items: flex-start; flex-direction: column; }
-      #europass-view .available { text-align: left; }
-      #europass-view .page { padding: 0 14px; }
-      #europass-view header.profile, #europass-view main { padding-left: 22px; padding-right: 22px; }
-      #europass-view h1 { font-size: 34px; }
-      #europass-view .contacts { grid-template-columns: 1fr; }
-      #europass-view .entry-head { display: block; }
-      #europass-view time { display: block; margin-top: 6px; }
-      #europass-view .language-grid { grid-template-columns: 1fr; }
-      #europass-view .language-grid div { border-right: 0; }
-      #europass-view .timeline { margin-left: 6px; padding-left: 20px; }
-      #europass-view .timeline-item::before { left: -30px; }
+      #profile-view .topbar-inner { align-items: flex-start; flex-direction: column; }
+      #profile-view .available { text-align: left; }
+      #profile-view .page { padding: 0 14px; }
+      #profile-view header.profile, #profile-view main { padding-left: 22px; padding-right: 22px; }
+      #profile-view h1 { font-size: 34px; }
+      #profile-view .contacts { grid-template-columns: 1fr; }
+      #profile-view .entry-head { display: block; }
+      #profile-view time { display: block; margin-top: 6px; }
+      #profile-view .language-grid { grid-template-columns: 1fr; }
+      #profile-view .language-grid div { border-right: 0; }
+      #profile-view .timeline { margin-left: 6px; padding-left: 20px; }
+      #profile-view .timeline-item::before { left: -30px; }
     }
     @media print {
-      #europass-view { background: white; }
-      #europass-view .topbar, #europass-view .hero-strip, #europass-view .actions { display: none; }
-      #europass-view .page { margin: 0; max-width: none; padding: 0; }
-      #europass-view .profile-card { box-shadow: none; border-radius: 0; }
-      #europass-view section { break-inside: avoid; }
-      #europass-view .entry { break-inside: avoid; }
-      #europass-view a { color: inherit; }
+      #profile-view { background: white; }
+      #profile-view .topbar, #profile-view .hero-strip, #profile-view .actions { display: none; }
+      #profile-view .page { margin: 0; max-width: none; padding: 0; }
+      #profile-view .profile-card { box-shadow: none; border-radius: 0; }
+      #profile-view section { break-inside: avoid; }
+      #profile-view .entry { break-inside: avoid; }
+      #profile-view a { color: inherit; }
     }
   
             </style>
-<div class="topbar"><div class="topbar-inner"><div class="eu"><div class="flag" aria-hidden="true"></div><div><strong>Europass-style profile</strong><br>Personal profile document</div></div><div class="available">Profile will be available until<br><strong>09 January 2027</strong></div></div></div>
+<div class="topbar"><div class="topbar-inner"><div class="profile-brand"><div class="profile-mark" aria-hidden="true"><i class="fas fa-id-card"></i></div><div><strong>Detailed profile</strong><br>Personal profile document</div></div><div class="available">Profile updated<br><strong>March 2025</strong></div></div></div>
   <div class="hero-strip"></div>
   <div class="page"><div class="profile-card">
     <header class="profile">
@@ -1142,25 +1139,25 @@ section {
    <!-- Replace your entire script section with this: -->
 <!-- Replace your entire script section with this: -->
 <script>
-    // Europass toggle
-    function toggleView() {
-        const ep = document.getElementById('europass-view');
-        const btn = document.getElementById('europass-btn');
-        const isVisible = ep.style.display !== 'none';
-        ep.style.display = isVisible ? 'none' : 'block';
-        btn.innerHTML = isVisible
-            ? '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/20px-Flag_of_Europe.svg.png" style="height:13px;border-radius:2px;" alt="EU"/> Europass CV'
+    // Profile view toggle
+    function toggleProfileView() {
+        const profileView = document.getElementById('profile-view');
+        const profileBtn = document.getElementById('profile-btn');
+        const isVisible = profileView.style.display !== 'none';
+        profileView.style.display = isVisible ? 'none' : 'block';
+        profileBtn.innerHTML = isVisible
+            ? '<i class="fas fa-id-card" aria-hidden="true"></i> Profile CV'
             : '&larr; Portfolio';
-        if (!isVisible) ep.scrollTop = 0;
+        if (!isVisible) profileView.scrollTop = 0;
     }
-    const epBtn = document.getElementById('europass-btn');
-    epBtn.addEventListener('mouseenter', () => {
-        epBtn.style.background = 'rgba(255,255,255,0.28)';
-        epBtn.style.borderColor = 'rgba(255,255,255,0.5)';
+    const profileToggleBtn = document.getElementById('profile-btn');
+    profileToggleBtn.addEventListener('mouseenter', () => {
+        profileToggleBtn.style.background = 'rgba(255,255,255,0.28)';
+        profileToggleBtn.style.borderColor = 'rgba(255,255,255,0.5)';
     });
-    epBtn.addEventListener('mouseleave', () => {
-        epBtn.style.background = 'rgba(255,255,255,0.15)';
-        epBtn.style.borderColor = 'rgba(255,255,255,0.3)';
+    profileToggleBtn.addEventListener('mouseleave', () => {
+        profileToggleBtn.style.background = 'rgba(255,255,255,0.15)';
+        profileToggleBtn.style.borderColor = 'rgba(255,255,255,0.3)';
     });
 
     // ── Light Polygon Network Background ──
